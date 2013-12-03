@@ -3,19 +3,16 @@
 <head>
 <meta name="viewport" content="width=320; user-scalable=no" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Demo Vinculaciones</title>
+<title>Demo Gestion de Viajes</title>
 
 <link href="jquery.mobile/codiqa.ext.min.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.theme-1.3.1.min.css"
-	rel="stylesheet">
-<link href="jquery.mobile/theme_xm_jqm_1.1.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.structure-1.3.1.min.css"
-	rel="stylesheet">
+<link href="jquery.mobile/jquery.mobile.theme-1.3.2.css" rel="stylesheet">
+<link href="jquery.mobile/jquery.mobile.structure-1.3.2.css" rel="stylesheet">
 
 <link href="css/custom-styles.css" rel="stylesheet">
 
 <script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/jquery.mobile-1.3.1.min.js"></script>
+<script src="js/jquery.mobile-1.3.2.js"></script>
 <script src="js/codiqa.ext.min.js"></script>
 <script src="js/vinculaciones.js"></script>
 <script src="js/kinvey-phonegap-1.1.2.min.js"></script>
@@ -36,290 +33,76 @@
 				    console.log(evt.code);}
 				);
 	};
-
-	function init() {
-		
-		document.addEventListener("deviceready", onDeviceReady, true);
-		iniciarCampos();
-
-		/********Init Connection with kinvey Back End********/
-		var promise = Kinvey.init({
-			appKey : 'kid_PPwwzftRG9',
-			appSecret : 'a5f7bc254fea41da8364e4bc7064c096'
-		});
-
-		promise
-				.then(
-						function(activeUser) {
-
-							var user = Kinvey.getActiveUser();
-							if (null == user) {
-								Kinvey.User.login('admin1', 'admin', {
-									success : function() {
-										console.log('autenticado');
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								});
-							}
-
-						},
-						function(error) {
-							$('#mensaje')
-									.text(
-											'Problemas conectando con el backend. Por favor intente mas tarde');
-
-						});
-
-		$("#ingresar").on("click", function() {
-			validarUsuario();
-			//FIXME - descomentar
-			//$.mobile.changePage("#vinculacion", {
-			//	transition : "pop",
-			//	reverse : false,
-			//	changeHash : false
-			//});
-		});
-
-		//$(document).on("pageshow", "#vinculacion", function () {
-
-		//});
-	}
 </script>
 
 </head>
 <body onload="init();" id="stage" class="theme">
 
 	<!--Logon-->
-	<div data-role="page" data-control-title="TVLogin" data-theme="b" id="login">
-	    <div data-theme="a" data-role="header">
-	        <h2>
-	            Gestión de Viajes
-	        </h2>
-	    </div>
-	    <div data-role="content">
-	        <div data-controltype="htmlblock">
-	            <div data-role="content">
-	                <form action="">
-	                    <a href="##" data-controltype="image">
-	                        <div style=" text-align:center">
-	                            <img style="width: 220px; height: 120px" src="https://s3.amazonaws.com/assets.codiqa.com/bUDWkIQxQca86IFFNzh4_Logo-Grupo-Bancolombia.png">
-	                        </div>
-	                    </a>
-	                    <div data-role="fieldcontain" data-controltype="textinput">
-	                        <label for="usuario">
-	                            Usuario
-	                        </label>
-	                        <input name="usuario" id="usuario" placeholder="" value="" type="text"
-	                        data-type="vertical" onchange="$('#password').focus().tap();">
-	                    </div>
-	                    <div data-role="fieldcontain" data-controltype="textinput">
-	                        <label for="password">
-	                            Password
-	                        </label>
-	                        <input name="password" id="password" placeholder="" value="" type="password"
-	                        onchange="$('#ingresar').focus();">
-	                    </div>
-	                    <div align="center">
-	                        <a id="ingresar" data-role="button" data-inline="true" data-theme="b"
-	                        href="#" data-icon="check" data-iconpos="left" data-transition="pop">
-	                            Ingresar
-	                        </a>
-	                    </div>
-	                    <div id="mensaje" data-controltype="textblock" class="warning">
-	                    </div>
-	                </form>
-	            </div>
-	        </div>
-	    </div>
+	<div data-role="page" id="logon" data-theme="b"
+		style="background: url('images/fondo.png'); background-size:100% 100%;">
+
+		<div data-role="header" data-theme="b" align="center">
+			<h1>GestiÃ³n de viajes</h1>
+		</div>
+
+		<div data-role="content">
+			<p></p>
+			<div align="center" >
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
+			</div>
+			<div align="center" style="height: 30px;">
+				<p></p>
+			</div>
+			<div class="custom-label">
+				<b>Usuario</b>
+			</div>
+			<input type="text" name="usuario" id="usuario" value="" 
+				data-type="vertical" onchange="$('#password').focus();"/>
+			<div class="custom-label">
+				<b>ContraseÃ±a</b>
+			</div>
+			<input type="password" name="password" id="password" value=""
+				 onchange="$('#ingresar').focus();" />
+
+			<div align="center">
+				<a id="ingresar" data-role="button" data-inline="true"
+					data-theme="b" href="#" data-icon="check" data-iconpos="left"
+					data-transition="pop"> Ingresar </a>
+			</div>
+			<div id="mensaje" data-controltype="textblock" class="warning"></div>
+		</div>
+
 	</div>
 
-	<!--/Logon-->
-	
-	<!--Solicitudes-->
-	
-	<div data-role="page" data-control-title="TV1" data-theme="b" id="solicitud">
-	    <div data-theme="a" data-role="header">
-	        <a data-role="button" data-theme="b" href="#login" data-icon="refresh"
-	        data-iconpos="left" class="ui-btn-left">
-	            Salir
-	        </a>
-	        <h3>
-	            Solicitudes
-	        </h3>
-	    </div>
-	    <div data-role="content">
-	        <div data-controltype="htmlblock">
-	            <div data-role="content">
-	                <div data-controltype="htmlblock">
-	                    <div data-role="content">
-	                        <div data-role="fieldcontain" data-controltype="searchinput" type="search"
-	                        data-mini="true">
-	                        </div>
-	                        <ul id="ListaSolicitudes" data-role="listview" data-filter="true" data-divider-theme="a"
-	                        data-inset="true" data-filter-placeholder="Ingrese Consulta...">
-	                            <li data-role="list-divider" role="heading">
-	                                Solicitudes
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	            </div>
-	            <div data-theme="a" data-role="footer" data-position="fixed">
-	                <div data-role="navbar" data-iconpos="top">
-	                    <ul>
-	                        <li>
-	                            <a href="#solicitud" data-transition="fade" data-theme="" data-icon="check">
-	                                Enviar
-	                            </a>
-	                        </li>
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!--/Solicitudes-->
+	<!--Vinculacion-->
 
-	<!--PopUp-->
-	<div data-role="page" data-control-title="TV1_PU" data-theme="b" id="popup">
-	    <div data-role="content">
-	        <ul data-role="listview" data-divider-theme="b" data-inset="true">
-	            <li data-role="list-divider" role="heading">
-	                Detalle Solicitud
-	            </li>
-	        </ul>
-	        <div class="ui-grid-a">
-	            <div class="ui-block-a">
-	            </div>
-	            <div class="ui-block-b">
-	            </div>
-	            <div class="ui-block-a">
-	            </div>
-	            <div class="ui-block-b">
-	            </div>
-	            <div class="ui-block-a">
-	            </div>
-	            <div class="ui-block-b">
-	            </div>
-	            <div class="ui-block-a">
-	            </div>
-	            <div class="ui-block-b">
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!--/PopUp-->
-	
-	<!--DetalleSolicitud-->
-	<div data-role="page" data-control-title="TV2" data-theme="b" id="detalleanticipo">
-	    <div data-theme="a" data-role="header">
-	        <h3>
-	            Datos Anticipo
-	        </h3>
-	        <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
-	    </div>
-	    <div data-role="content">
-	        <div data-role="fieldcontain" data-controltype="dateinput">
-	            <label for="fecha_inicio">
-	                Fecha Inicio
-	            </label>
-	            <input name="" id="fecha_inicio" placeholder="" value="" type="date" data-mini="true">
-	            <div data-role="fieldcontain" data-controltype="dateinput">
-	                <label for="fecha_fin">
-	                    Fecha Fin
-	                </label>
-	                <input name="" id="fecha_fin" placeholder="" value="" type="date" data-mini="true">
-	            </div>
-	        </div>
-	        <div class="ui-grid-a">
-	            <div class="ui-block-a">
-	                <div data-role="fieldcontain" data-controltype="selectmenu">
-	                    <label for="pais_origen">
-	                        País Origen
-	                    </label>
-	                    <select id="pais_origen" name="" data-mini="true">
-	                        <option value="option1">
-	                            País Origen
-	                        </option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="ui-block-b">
-	                <div data-role="fieldcontain" data-controltype="selectmenu">
-	                    <label for="ciudad_origen">
-	                        Ciudad Origen
-	                    </label>
-	                    <select id="ciudad_origen" name="" data-mini="true">
-	                        <option value="option1">
-	                            Ciudad Origen
-	                        </option>
-	                    </select>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="ui-grid-a">
-	            <div class="ui-block-a">
-	                <div data-role="fieldcontain" data-controltype="selectmenu">
-	                    <label for="pais_destino">
-	                        Pais Destino
-	                    </label>
-	                    <select id="pais_destino" name="" data-mini="true">
-	                        <option value="option1">
-	                            País Destino
-	                        </option>
-	                    </select>
-	                </div>
-	            </div>
-	            <div class="ui-block-b">
-	                <div data-role="fieldcontain" data-controltype="selectmenu">
-	                    <label for="ciudad_destino">
-	                        Ciudad Destino
-	                    </label>
-	                    <select id="ciudad_destino" name="" data-mini="true">
-	                        <option value="option1">
-	                            Ciudad Destino
-	                        </option>
-	                    </select>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="ui-grid-a">
-	            <div class="ui-block-a">
-	                <div data-role="fieldcontain" data-controltype="textinput">
-	                    <label for="anticipo">
-	                        Anticipo
-	                    </label>
-	                    <input name="" id="anticipo" placeholder="" value="" type="text" data-mini="true">
-	                </div>
-	            </div>
-	            <div class="ui-block-b">
-	                <div data-role="fieldcontain" data-controltype="selectmenu">
-	                    <label for="moneda">
-	                        Moneda
-	                    </label>
-	                    <select id="moneda" name="" data-mini="true">
-	                        <option value="option1">
-	                            Moneda
-	                        </option>
-	                    </select>
-	                </div>
-	            </div>
-	        </div>
-	        <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
-	        <a id="button1" data-role="button" data-inline="true" data-rel="back"
-	        data-theme="d" href="#detalleanticipo">
-	            Atrás
-	        </a>
-	        <a id="button2" data-role="button" data-inline="true" data-theme="b" href="#detalleanticipo">
-	            Enviar
-	        </a>
-	    </div>
-	</div>
-	<!--/DetalleSolicitud-->
+	<div data-role="page" data-control-title="legalizacion" data-theme="b"
+		id="vinculacion" style="background: url('images/fondo.png')">
+		<div id="vinculacionPageHeader" data-theme="b" data-role="header" >
+			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
+			<h3 id="headerVinculacion">Consulta XXX</h3>
+			<a href="#" data-icon="check" onclick="guardar();">gastos</a>
+		</div>
+		<div align="center">
+			<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
+		</div>
+		
+		<div data-role="content">
+			<div data-controltype="textblock" id="bienvenidaText"></div>
 
-		<div data-theme="b" data-role="footer" data-position="fixed">
+			<div id="mensajeVinculacion" data-controltype="textblock"></div>
+			
+		</div>
+	
+
+
+		
+	</div>
+	
+	<!--/Vinculacion-->
+	
+	<div data-role="footer" data-position="fixed">
 			<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
 				<ul>
 					<li><a href="#" data-transition="fade"
@@ -329,12 +112,11 @@
 						onclick="validarListasControl();" data-theme="b" data-icon="">
 							Validar listas control </a></li>
 					<li><a href="#" data-transition="fade" onclick="segmentar();"
-						data-theme="b" data-icon=""> Segmentar </a></li>
+						data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
 					<li><a href="#" data-transition="fade" onclick="vincular();"
 						data-theme="b" data-icon=""> Vincular </a></li>
 				</ul>
 			</div>
-		</div>
 	</div>
 
 
