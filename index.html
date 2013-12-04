@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=320; user-scalable=no" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Demo Gestion de Viajes</title>
+<title>Demo Legalización de gastos de Viajes</title>
 
 <link href="jquery.mobile/codiqa.ext.min.css" rel="stylesheet">
 <link href="jquery.mobile/jquery.mobile.theme-1.3.2.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/jquery.mobile-1.3.2.js"></script>
 <script src="js/codiqa.ext.min.js"></script>
-<script src="js/vinculaciones.js"></script>
+<script src="js/gestion-viajes.js"></script>
 <script src="js/kinvey-phonegap-1.1.2.min.js"></script>
 
 <script type="text/javascript" src="phonegap.js"></script>
@@ -75,50 +75,75 @@
 
 	</div>
 
-	<!--Vinculacion-->
+	<!--Lista de viajes-->
 
 	<div data-role="page" data-control-title="legalizacion" data-theme="b"
-		id="vinculacion" style="background: url('images/fondo.png')">
-		<div id="vinculacionPageHeader" data-theme="b" data-role="header" >
-			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
-			<h3 id="headerVinculacion">Consulta XXX</h3>
-			<a href="#" data-icon="check" onclick="guardar();">gastos</a>
-		</div>
-		<div align="center">
-			<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
-		</div>
+		id="listaViajesAprobados" style="background: url('images/fondo.png')">
 		
-		<div data-role="content">
-			<div data-controltype="textblock" id="bienvenidaText"></div>
-
-			<div id="mensajeVinculacion" data-controltype="textblock"></div>
-			
-		</div>
-	
-
-
+		<div data-theme="b" data-role="header">
+        <h2>
+            Listado
+        </h2>
+        <a data-role="button" data-transition="slide" data-theme="b" href="#page1"
+        data-icon="home" data-iconpos="left" class="ui-btn-left">
+            Salir
+        </a>
+    </div>
+    <div data-role="content">
+        <div style=" text-align:center" data-controltype="image">
+            <img style="width: 220px; height: px" src="https://s3.amazonaws.com/assets.codiqa.com/bUDWkIQxQca86IFFNzh4_Logo-Grupo-Bancolombia.png">
+        </div>
+        <div data-role="fieldcontain" data-controltype="searchinput">
+            <input name="" id="searchinput1" placeholder="Filtrar viajes..." value=""
+            type="search">
+        </div>
+        <ul id="lstViajesAprobados" data-role="listview" data-divider-theme="b"
+        data-inset="true">
+            <li data-role="list-divider" role="heading">
+                Viajes aprobados
+            </li>
+            <li data-theme="c">
+                <a href="#Expense" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+            <li data-theme="c">
+                <a href="#page1" data-transition="slide">
+                    Button
+                </a>
+            </li>
+        </ul>
+    </div>
 		
 	</div>
 	
-	<!--/Vinculacion-->
+	<!--/Listado viajes-->
 	
-	<div data-role="footer" data-position="fixed">
-			<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
-				<ul>
-					<li><a href="#" data-transition="fade"
-						onclick="limpiarCamposVinculacion();" data-theme="b" data-icon="">
-							Nueva Vinculación </a></li>
-					<li><a href="#" data-transition="fade"
-						onclick="validarListasControl();" data-theme="b" data-icon="">
-							Validar listas control </a></li>
-					<li><a href="#" data-transition="fade" onclick="segmentar();"
-						data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
-					<li><a href="#" data-transition="fade" onclick="vincular();"
-						data-theme="b" data-icon=""> Vincular </a></li>
-				</ul>
-			</div>
-	</div>
-
-
+	
 </body>
 </html>
