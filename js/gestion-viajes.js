@@ -27,9 +27,10 @@ function validarUsuario(){
 				
 			            success: function() {
 			            console.log("Loggeado.");
+			            		var user = Kinvey.getActiveUser();
 			            
 					            var query = new Kinvey.Query();
-						        query.equalTo('idUsuario', usuario);
+						        query.equalTo('idUsuario', user._id);
 								Kinvey.DataStore.find('UsuarioRol', query, {
 						            success: function(response) {
 						                
@@ -40,11 +41,12 @@ function validarUsuario(){
 						                	        changeHash: false
 						                	});
 						                    
-						                    var user = Kinvey.getActiveUser();
+						                    
 						                    var txtBienv = "Bienvenido: " + user.first_name + " " + user.last_name;
 						    				$('#bienvenidaText').text(txtBienv);
-						    				
+						    				$.mobile.loading('hide');
 						                } else {
+						                	$.mobile.loading('hide');
 						                    $('#mensaje').show();
 						                    $('#mensaje').addClass('warning');
 						                    $('#mensaje').text( 'No tiene permisos para acceder a legalizar gastos.' );
@@ -69,7 +71,6 @@ function validarUsuario(){
 			    	        $.mobile.loading('hide');
 			            }
 			});
-			return false;
 	       
 	        
 	    } else {
