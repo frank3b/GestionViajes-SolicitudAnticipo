@@ -6,7 +6,7 @@ function validarUsuario(){
 	
 	try {
 		$.mobile.loading('show');
-	    limpiarMensaje($('#mensaje'));
+	    limpiarMensaje( $('#mensaje') );
 	    
 	    var usuario = $('#usuario').val();
 	    var password = $('#password').val();
@@ -41,23 +41,18 @@ function validarUsuario(){
 						                	        changeHash: false
 						                	});
 						                    
-						                    
 						                    var txtBienv = "Bienvenido: " + user.first_name + " " + user.last_name;
 						    				$('#bienvenidaText').text(txtBienv);
 						    				$.mobile.loading('hide');
 						                } else {
 						                	$.mobile.loading('hide');
-						                    $('#mensaje').show();
-						                    $('#mensaje').addClass('warning');
-						                    $('#mensaje').text( 'No tiene permisos para acceder a legalizar gastos.' );
+						                	agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos.');
 						                }                
 						                $.mobile.loading('hide');
 						            },
 						            error: function(error){
 						    			console.log(error);
-										$('#mensaje').show();
-										$('#mensaje').addClass('warning');
-						    	        $('#mensaje').text( 'No tiene permisos para acceder a legalizar gastos..' );
+						    			agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos..');
 						    	        $.mobile.loading('hide');
 									}
 						        });
@@ -65,25 +60,18 @@ function validarUsuario(){
 			            },
 			            error: function(error){
 			            	console.log(error);
-							$('#mensaje').show();
-							$('#mensaje').addClass('warning');
-			    	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+			    	        agregarMensaje($('#mensaje'), 'W', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.');
 			    	        $.mobile.loading('hide');
 			            }
 			});
-	       
 	        
 	    } else {
-	        $('#mensaje').show();
-	        $('#mensaje').addClass('warning');
-	        $('#mensaje').text( 'Debe ingresar el nombre de usuario y la contrase\u00F1a.' );
+	        agregarMensaje($('#mensaje'), 'W', 'Debe ingresar el nombre de usuario y la contrase\u00F1a.');
 	        $.mobile.loading('hide');
 	    }  
 	} catch (e) {
 		console.log(error);
-		$('#mensaje').show();
-		$('#mensaje').addClass('error');
-		$('#mensaje').text( 'Error de conexi\u00F3n, verifique por favor..' );
+		agregarMensaje($('#mensaje'), 'E', 'Error de conexi\u00F3n, verifique por favor.');
 		$.mobile.loading('hide');
 	}
     
