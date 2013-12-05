@@ -136,8 +136,13 @@
 
 			<div id="mensajeGastos" data-controltype="textblock"></div>
 			<div data-controltype="textblock" style="height: 20px"></div>
-			<div data-controltype="textblock" id="txtViaje" class="custom_title">
-
+			
+			<div class="custom-label">
+				<b>Numero de viaje</b>
+			</div>
+			<div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
+				<input type="text" name="txtViaje" id="txtViaje" value="" 
+					data-type="vertical" readonly="readonly"/>	
 			</div>
 
 			<ul id="lstGastos" data-role="listview" data-divider-theme="b"
@@ -173,7 +178,7 @@
 					<b>Clase de gasto</b>
 				</div>
 				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="true">
+					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="false">
 						<option value="1">Traslados</option>
 						<option value="2">Capacitación</option>
 						<option value="3">Reuniones</option>
@@ -184,21 +189,20 @@
 				</div>
 				<div data-role="fieldcontain" data-controltype="textarea" style="margin-top: 1px;">
 					<textarea name="" id="txtDescripcionGasto" placeholder=""
-						data-mini="true"></textarea>
+						data-mini="false"></textarea>
 				</div>
 				<div class="custom-label">
 					<b>Monto</b>
 				</div>
 				<div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
 					<input name="" id="txtMontoGasto" placeholder="" value="" type="number"
-						data-mini="true">
+						data-mini="false">
 				</div>
 				<div class="custom-label">
 					<b>Moneda</b>
 				</div>
 				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					<select id="tipoMonedaSelect"
-						name="cmbMoneda" data-mini="true">
+					<select id="tipoMonedaSelect" name="cmbMoneda" data-mini="false">
 						<option value="COP">COP</option>
 						<option value="US">US</option>
 						<option value="EUR">EUR</option>
@@ -209,16 +213,11 @@
 				</div>
 				<div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
 					<input name=""
-						id="txtFechaGasto" placeholder="" value="" type="date"
-						data-mini="true">
+						id="txtFechaGasto" placeholder="" value="" type="date" data-mini="false">
 				</div>
-				<a id="btnAgregarFactura" data-role="button" href="#"> Agregar factura </a>
-				<div
-					style="width: 50px; height: 50px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;"
-					data-controltype="image" id="imgFactura">
-					<img src="https://codiqa.com/static/images/v2/image.png"
-						alt="image"
-						style="position: absolute; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px">
+				<a id="btnAgregarFactura" data-role="button" href="#" onclick="tomarFoto();"> Agregar factura </a>
+				<div style="width: 250px; height: 250px;" id="imgFactura" align="center">
+					
 				</div>
 			</form>
 		</div>

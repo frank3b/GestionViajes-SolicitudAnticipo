@@ -141,8 +141,6 @@ function agregarMensaje(objeto, tipoError, mensaje){
 	
 }
 
-/*
-var idImagen = 0;
 function tomarFoto(){
 	console.log('Por tomar foto...');
 	if (!navigator.camera) {
@@ -156,19 +154,9 @@ function tomarFoto(){
 					};
 	navigator.camera.getPicture(
 		function(imageData) {
-			idImagen += 1;
-			//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
 			
-			//alert(JSON.stringify(imageData));
-			//alert(imageData);
-			var item = "<li><a href=\"#popupFoto\" onclick=\"verFoto('"+ imageData +"');\" data-rel=\"popup\" data-position-to=\"window\"> "+
-			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
-			//"<h3>Nombre Imagen</h3>" +
-			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
-			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
-			"</a></li>";
-			//alert(item);
-			$('#listaAnexos').append(item).listview('refresh');
+			var item = "<img id='img' src='"+ imageData +"'/> ";
+			$('#imgFactura').append(item);
 			//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
 			
 		},
@@ -179,6 +167,7 @@ function tomarFoto(){
 	return false;
 }
 
+/*
 function verFoto(src){
 	$('#imagenPopup').attr('src', src);
 	//$('#popupFoto').popup( "open" );
@@ -198,7 +187,7 @@ function consultarSolicitudes() {
 		var query = new Kinvey.Query();
 		query.equalTo('id_usuario', user.username);
 		var query2 = new Kinvey.Query();
-		query2.equalTo('Estado', '1');
+		query2.equalTo('Estado', 1);
 		query.and(query2);
 
 		Kinvey.DataStore.find('Solicitudes', query,	{
@@ -229,7 +218,7 @@ function consultarSolicitudes() {
 									$.mobile.loading('hide');
 								} else {
 									agregarMensaje($('#mensajeViajes'), 'W',
-											'No se encontr\u00F3 registros ');
+											'No se encontr\u00F3 solicitudes de viaje.');
 									$.mobile.loading('hide');
 								}
 
@@ -267,7 +256,7 @@ function consultarGastos(id_solicitud) {
 				if (response.length > 0) {
 					listaGastos = response;
 					idViaje = id_solicitud;
-					$('#txtViaje').text("Viaje Nro: " + id_solicitud);
+					$('#txtViaje').val(id_solicitud);
 					
 					var fechaAnterior = null;
 					$.each(response, function(index, obj) {
@@ -376,7 +365,7 @@ function guardarGasto(){
 			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo clase de gasto es requerido.');
 			$('#cmbClaseGasto').trigger("focus");
 		} else if(descripcion == null || descripcion == ''){
-			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo descripcion es requerido.');
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo descripci\u00F3n es requerido.');
 			$('#txtDescripcionGasto').trigger("focus");
 		} else if(monto == null || monto == ''){
 			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo monto es requerido.');
