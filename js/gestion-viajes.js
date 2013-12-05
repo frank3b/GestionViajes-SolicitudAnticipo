@@ -209,7 +209,7 @@ function consultarSolicitudes() {
 										
 										$.each(listaMotivos, function(index, objMotivo) {
 											if(objMotivo.id_motivo == obj.id_motivo){
-												var item = "<li><a href=\"#gastosViaje\" onclick=\"consultarGastos('" + obj.id_solicitud + "');\"> "
+												var item = "<li><a href=\"#\" onclick=\"consultarGastos('" + obj.id_solicitud + "');\"> "
 													+ "<p><strong>Solicitud #:</strong> " + obj.id_solicitud + "</p>"
 													+ "<p><strong>Motivo:</strong> " + objMotivo.motivo +	"</p>"
 													+ "<p class=\"ui-li-aside\"><strong>" + obj.fecha_inicio + "</strong></p>"
@@ -244,10 +244,17 @@ var idViaje = null;
 var listaGastos = null;
 function consultarGastos(id_solicitud) {
 	
-	$("#lstGastos li").remove();
-
 	try {
+		$.mobile.changePage("#gastosViaje", {
+	        transition: "pop",
+	        reverse: false,
+	        changeHash: false
+		});
+		
 		$.mobile.loading('show');
+		
+		$("#lstGastos li").remove();
+		
 		limpiarMensaje($('#mensajeGastos'));
 		
 		var user = Kinvey.getActiveUser();
@@ -301,7 +308,7 @@ function consultarGastos(id_solicitud) {
 
 function regresarAGastos(){
 	limpiarMensaje( $('#mensajeNuevoGasto') );
-	
+	gasto = null;
 	limpiarNuevoGasto();
 	
 	consultarGastos(idViaje);
