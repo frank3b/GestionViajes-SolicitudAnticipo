@@ -142,7 +142,8 @@ function agregarMensaje(objeto, tipoError, mensaje){
 }
 
 function tomarFoto(){
-	console.log('Por tomar foto...');
+	limpiarMensaje($('#mensajeNuevoGasto'));
+	//console.log('Por tomar foto...');
 	if (!navigator.camera) {
 		alert("Camera API not supported", "Error");
 		return;
@@ -172,7 +173,9 @@ function verFactura(){
 	limpiarMensaje($('#mensajeNuevoGasto'));
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		$('#imagenPopup').attr('src', gasto.factura);
+		$('#popupFoto').popup( "open" );
 	} else {
+		$('#popupFoto').popup( "hide" );
 		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar factura".');
 	}
 	
