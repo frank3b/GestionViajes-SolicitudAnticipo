@@ -173,7 +173,7 @@ function verFactura(){
 	limpiarMensaje($('#mensajeNuevoGasto'));
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		//<img src="" id="imagenPopup" />
-		
+		$('#divImagePopup').empty();
 		$('#divImagePopup').append("<img id='imagenPopup' src='"+ gasto.factura +"'/> ");
 		
 		//$('#imagenPopup').attr('src', gasto.factura);
@@ -325,7 +325,6 @@ function nuevoGasto(){
 	esNuevoGasto = true;
 	gasto = null;
 	
-	$('#divImagePopup').empty();
 	$.mobile.changePage("#nuevoGasto", {
         transition: "pop",
         reverse: false,
@@ -337,7 +336,6 @@ var esNuevoGasto = true;
 var gasto = null;
 function editarGasto(idGasto){
 	gasto = null;
-	$('#divImagePopup').empty();
 	
 	$.mobile.loading('show');
 	$.each(listaGastos, function(index, obj) {
