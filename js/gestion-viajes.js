@@ -169,6 +169,7 @@ function tomarFoto(){
 }
 
 function verFactura(){
+	limpiarMensaje($('#mensajeNuevoGasto'));
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		$('#imagenPopup').attr('src', gasto.factura);
 	} else {
@@ -273,7 +274,7 @@ function consultarGastos(id_solicitud) {
 						
 						var item = "<li><a href=\"#\" onclick=\"editarGasto('" + obj._id + "');\"> "
 							+ "<p><strong>" + obj.descripcion + "</strong></p>"
-							+ "<p><strong>$ " + obj.monto + " " + obj.tipo_moneda + "</strong></p>"
+							+ "<p><strong>$" + obj.monto + " " + obj.tipo_moneda + "</strong></p>"
 							+ "</a></li>";
 						$("#lstGastos").append(item).listview('refresh');
 
@@ -466,7 +467,12 @@ function init() {
     	consultarSolicitudes();
     });
 	
-    
+    $( "#popupFoto" ).on({
+        popupbeforeposition: function() {
+            var maxHeight = $( window ).height() - 60 + "px";
+            $( "#imagenPopup" ).css( "max-height", maxHeight );
+        }
+    });
 }
 
 var listaTiposGastos = null;

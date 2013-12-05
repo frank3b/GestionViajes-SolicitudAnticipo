@@ -219,7 +219,7 @@
 				<div data-role="popup" id="popupFoto">
 						<a href="#nuevoGasto" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 					  	<img src="" id="imagenPopup" />
-					</div>
+				</div>
 				
 				<div data-role="footer" data-position="fixed">
 					<div id="navBarGastos" data-role="navbar" data-iconpos="right">
@@ -227,8 +227,8 @@
 							<li><a href="#" data-transition="fade"onclick="tomarFoto();" data-theme="b" data-icon="">
 									Agregar factura
 							</a></li>
-							<li><a href="#" data-transition="fade" onclick="verFactura();" data-theme="b" data-icon="">
-									Ver factura 
+							<li><a href="#popupFoto" data-transition="fade" onclick="verFactura();" data-rel="popup" data-position-to="window"
+									data-theme="b" data-icon="">Ver factura 
 							</a></li>
 						</ul>
 					</div>
