@@ -179,7 +179,7 @@
 					<b>Clase de gasto</b>
 				</div>
 				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="true">
+					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="false">
 						<option value="1">Traslados</option>
 						<option value="2">Capacitación</option>
 						<option value="3">Reuniones</option>
@@ -203,7 +203,7 @@
 					<b>Moneda</b>
 				</div>
 				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					<select id="tipoMonedaSelect" name="cmbMoneda" data-mini="true">
+					<select id="tipoMonedaSelect" name="cmbMoneda" data-mini="false">
 						<option value="COP">COP</option>
 						<option value="US">US</option>
 						<option value="EUR">EUR</option>
@@ -217,10 +217,11 @@
 						id="txtFechaGasto" placeholder="" value="" type="date" data-mini="true">
 				</div>
 				
-				<div data-role="popup" id="popupFoto">
+				<div data-role="popup" id="popupFoto" class="photopopup ui-popup ui-overlay-shadow ui-body-c" data-overlay-theme="a" 
+					data-corners="false" data-tolerance="30,15" data-disabled="false" data-shadow="true" 
+					data-transition="none" data-position-to="origin">
 						<a href="#nuevoGasto" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 						<div id="divImagePopup">
-							<img src="" id="imagenPopup" />
 						</div>
 				</div>
 				

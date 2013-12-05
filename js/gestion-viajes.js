@@ -174,7 +174,7 @@ function verFactura(){
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		//<img src="" id="imagenPopup" />
 		$('#divImagePopup').empty();
-		$('#divImagePopup').append("<img id='imagenPopup' src='"+ gasto.factura +"'/> ");
+		$('#divImagePopup').append("<img id=\"imagenPopup\" style=\"max-height: 300px;\" src='"+ gasto.factura +"'/> ");
 		
 		//$('#imagenPopup').attr('src', gasto.factura);
 		$('#popupFoto').popup( "open" );
@@ -489,12 +489,13 @@ function init() {
 		}
 	});*/
 	
-    $( "#popupFoto" ).on({
+    /*$( "#popupFoto" ).on({
         popupbeforeposition: function() {
             var maxHeight = $( window ).height() - 60 + "px";
             $( "#imagenPopup" ).css( "max-height", maxHeight );
         }
     });
+    */
 }
 
 var listaTiposGastos = null;
