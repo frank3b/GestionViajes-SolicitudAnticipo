@@ -215,12 +215,27 @@
 					<input name=""
 						id="txtFechaGasto" placeholder="" value="" type="date" data-mini="false">
 				</div>
-				<a id="btnAgregarFactura" data-role="button" href="#" onclick="tomarFoto();"> Agregar factura </a>
-				<div style="width: 250px; height: 250px;" id="imgFactura" align="center">
-					
+				
+				<div data-role="popup" id="popupFoto">
+						<a href="#nuevoGasto" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					  	<img src="" id="imagenPopup" />
+					</div>
+				
+				<div data-role="footer" data-position="fixed">
+					<div id="navBarGastos" data-role="navbar" data-iconpos="right">
+						<ul>
+							<li><a href="#" data-transition="fade"onclick="tomarFoto();" data-theme="b" data-icon="">
+									Agregar factura
+							</a></li>
+							<li><a href="#" data-transition="fade" onclick="verFactura();" data-theme="b" data-icon="">
+									Ver factura 
+							</a></li>
+						</ul>
+					</div>
 				</div>
 			</form>
 		</div>
+		
 	</div>
 	<!--Nuevo / Editar del viaje-->
 

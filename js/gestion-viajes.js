@@ -156,7 +156,9 @@ function tomarFoto(){
 		function(imageData) {
 			
 			var item = "<img id='img' src='"+ imageData +"'/> ";
-			$('#imgFactura').append(item);
+				$('#imgFactura').append(item);
+				
+			gasto.factura = imageData;	
 			
 		},
 		function() {
@@ -166,12 +168,14 @@ function tomarFoto(){
 	return false;
 }
 
-/*
-function verFoto(src){
-	$('#imagenPopup').attr('src', src);
-	//$('#popupFoto').popup( "open" );
+function verFactura(){
+	if(gasto != null && gasto.factura != null && gasto.factura != ''){
+		$('#imagenPopup').attr('src', gasto.factura);
+	} else {
+		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar factura".');
+	}
+	
 }
-*/
 
 var listaSolicitudes = null;
 function consultarSolicitudes() {
@@ -316,7 +320,7 @@ var esNuevoGasto = true;
 var gasto = null;
 function editarGasto(idGasto){
 	gasto = null;
-	
+	$.mobile.loading('show');
 	$.each(listaGastos, function(index, obj) {
 		if(obj._id == idGasto){
 			gasto = obj;
@@ -334,6 +338,7 @@ function editarGasto(idGasto){
                  reverse: false,
      	        changeHash: false
      		});
+			$.mobile.loading('hide');
 		}
 	});
 	
