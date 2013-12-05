@@ -54,9 +54,8 @@
 				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
 					style="width: 288px;" />
 			</div>
-			<div align="center" style="height: 30px;">
-				<p></p>
-			</div>
+			<div data-controltype="textblock" style="height: 30px"></div>
+			
 			<div class="custom-label">
 				<b>Usuario</b>
 			</div>
@@ -85,7 +84,7 @@
 		style="background: url('images/fondo.png'); background-size: 100% 100%;">
 
 		<div data-theme="b" data-role="header">
-			<h2>Listado</h2>
+			<h2>Listado viajes</h2>
 			<a data-role="button" data-transition="slide" data-theme="b"
 				href="#logon" data-icon="home" data-iconpos="left"
 				class="ui-btn-left" onclick="salir();"> Salir </a>
@@ -95,8 +94,8 @@
 				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
 					style="width: 288px;" />
 			</div>
+			<div data-controltype="textblock" style="height: 20px"></div>
 			<div data-controltype="textblock" id="bienvenidaText"></div>
-
 			<div data-controltype="textblock" style="height: 30px"></div>
 
 			<div id="mensajeViajes" data-controltype="textblock"></div>
@@ -121,8 +120,8 @@
 		style="background: url('images/fondo.png'); background-size: 100% 100%;">
 
 		<div data-theme="b" data-role="header">
-			<a data-role="button" href="#nuevoGasto" data-icon="plus"
-				data-iconpos="left" class="ui-btn-right" >
+			<a data-role="button" href="#" data-icon="plus"
+				data-iconpos="left" class="ui-btn-right" onclick="nuevoGasto();">
 				Agregar </a>
 			<h2>Gastos</h2>
 			<a data-role="button" data-transition="slide" data-theme="b"
@@ -136,7 +135,7 @@
 			</div>
 
 			<div id="mensajeGastos" data-controltype="textblock"></div>
-
+			<div data-controltype="textblock" style="height: 20px"></div>
 			<div data-controltype="textblock" id="txtViaje" class="custom_title">
 
 			</div>
@@ -151,8 +150,7 @@
 
 	<!--/Gastos del viaje-->
 
-
-
+	<!--Nuevo / Editar del viaje-->
 	<div data-role="page" data-control-title="nuevoGasto" data-theme="b"
 		id="nuevoGasto"
 		style="background: url('images/fondo.png'); background-size: 100% 100%;">
@@ -162,48 +160,59 @@
 			<h2>Agregar</h2>
 			<a data-role="button" data-transition="slide" data-theme="b"
 				href="#gastosViaje" data-icon="back" data-iconpos="left"
-				class="ui-btn-left"> Volver </a>
+				class="ui-btn-left" onclick="regresarAGastos();"> Volver </a>
 		</div>
 		<div data-role="content">
 			<div style="text-align: center" data-controltype="image">
 				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
 					style="width: 288px;" />
 			</div>
+			<div id="mensajeNuevoGasto" data-controltype="textblock"></div>
 			<form action="">
-				<div data-role="fieldcontain" data-controltype="selectmenu">
-					<label for="cmbClaseGasto"> Clase de gasto </label> <select
-						id="cmbClaseGasto" name="cmbClaseGasto" data-mini="true">
+				<div class="custom-label">
+					<b>Clase de gasto</b>
+				</div>
+				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
+					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="true">
 						<option value="1">Traslados</option>
 						<option value="2">Capacitación</option>
 						<option value="3">Reuniones</option>
 					</select>
 				</div>
-				<div data-role="fieldcontain" data-controltype="textarea">
-					<label for="txtDescripcionGasto"> Descripción </label>
+				<div class="custom-label">
+					<b>Descripción</b>
+				</div>
+				<div data-role="fieldcontain" data-controltype="textarea" style="margin-top: 1px;">
 					<textarea name="" id="txtDescripcionGasto" placeholder=""
 						data-mini="true"></textarea>
 				</div>
-				<div data-role="fieldcontain" data-controltype="textinput">
-					<label for="txtMontoGasto"> Monto </label> <input name=""
-						id="txtMontoGasto" placeholder="" value="" type="number"
+				<div class="custom-label">
+					<b>Monto</b>
+				</div>
+				<div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
+					<input name="" id="txtMontoGasto" placeholder="" value="" type="number"
 						data-mini="true">
 				</div>
-				<div data-role="fieldcontain" data-controltype="selectmenu">
-					<label for="tipoMonedaSelect"> Moneda </label> 
+				<div class="custom-label">
+					<b>Moneda</b>
+				</div>
+				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
 					<select id="tipoMonedaSelect"
 						name="cmbMoneda" data-mini="true">
-						<option value="1">COP</option>
-						<option value="2">US</option>
-						<option value="3">EUR</option>
+						<option value="COP">COP</option>
+						<option value="US">US</option>
+						<option value="EUR">EUR</option>
 					</select>
 				</div>
-				<div data-role="fieldcontain" data-controltype="dateinput">
-					<label for="txtFechaGasto"> Fecha del gasto </label> 
+				<div class="custom-label">
+					<b>Fecha del gasto</b>
+				</div>
+				<div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
 					<input name=""
 						id="txtFechaGasto" placeholder="" value="" type="date"
 						data-mini="true">
 				</div>
-				<a id="btnAgregarFactura" data-role="button" href="#agregarFactura"> Agregar factura </a>
+				<a id="btnAgregarFactura" data-role="button" href="#"> Agregar factura </a>
 				<div
 					style="width: 50px; height: 50px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;"
 					data-controltype="image" id="imgFactura">
@@ -214,6 +223,7 @@
 			</form>
 		</div>
 	</div>
+	<!--Nuevo / Editar del viaje-->
 
 </body>
 </html>

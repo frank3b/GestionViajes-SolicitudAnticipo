@@ -248,6 +248,7 @@ function consultarSolicitudes() {
 }
 
 var idViaje = null;
+var listaGastos = null;
 function consultarGastos(id_solicitud) {
 	
 	$("#lstGastos li").remove();
@@ -264,6 +265,7 @@ function consultarGastos(id_solicitud) {
 		Kinvey.DataStore.find('gastos', query, {
 			success : function(response) {
 				if (response.length > 0) {
+					listaGastos = response;
 					idViaje = id_solicitud;
 					$('#txtViaje').text("Viaje Nro: " + id_solicitud);
 					
@@ -277,7 +279,7 @@ function consultarGastos(id_solicitud) {
 							fechaAnterior = obj.fecha;
 						} 
 						
-						var item = "<li><a href=\"#gastosViaje\" onclick=\"consultarGastos('" + obj._id + "');\"> "
+						var item = "<li><a href=\"#\" onclick=\"editarGasto('" + obj._id + "');\"> "
 							+ "<p><strong>" + obj.descripcion + "</strong></p>"
 							+ "<p><strong>$ " + obj.monto + " " + obj.tipo_moneda + "</strong></p>"
 							+ "</a></li>";
@@ -304,10 +306,144 @@ function consultarGastos(id_solicitud) {
 	}
 }
 
-function nuevoGasto(){
-	//FIXME - Implementar
-}
+function regresarAGastos(){
+	limpiarMensaje( $('#mensajeNuevoGasto') );
 	
+	limpiarNuevoGasto();
+	
+	consultarGastos(idViaje);
+}
+
+function nuevoGasto(){
+	esNuevoGasto = true;
+	
+	$.mobile.changePage("#nuevoGasto", {
+        transition: "pop",
+        reverse: false,
+        changeHash: false
+	});
+}
+
+var esNuevoGasto = true;
+var gasto = null;
+function editarGasto(idGasto){
+	gasto = null;
+	
+	$.each(listaGastos, function(index, obj) {
+		if(obj._id == idGasto){
+			gasto = obj;
+			
+			$('#cmbClaseGasto').val(obj.tipo_gasto);
+			$('#txtDescripcionGasto').val(obj.descripcion);
+			$('#txtMontoGasto').val(obj.monto);
+			$('#tipoMonedaSelect').val(obj.tipo_moneda);
+			$('#txtFechaGasto').val(obj.fecha);
+			
+			esNuevoGasto = false;
+			 
+			$.mobile.changePage("#nuevoGasto", {
+                 transition: "pop",
+                 reverse: false,
+     	        changeHash: false
+     		});
+		}
+	});
+	
+}
+
+function limpiarNuevoGasto(){
+	$('#cmbClaseGasto').val("1").selectmenu('refresh');;
+	$('#txtDescripcionGasto').val("");
+	$('#txtMontoGasto').val("");
+	$('#tipoMonedaSelect').val("COP").selectmenu('refresh');;
+	$('#txtFechaGasto').val("");
+	
+	esNuevoGasto = true;
+}
+
+function guardarGasto(){
+	
+	try {
+		limpiarMensaje($('#mensajeNuevoGasto'));
+		
+		var tipoGasto = $('#cmbClaseGasto').val();
+		var descripcion = $('#txtDescripcionGasto').val();
+		var monto = $('#txtMontoGasto').val();
+		var tipoMoneda = $('#tipoMonedaSelect').val();
+		var fecha = $('#txtFechaGasto').val();
+		
+		if(tipoGasto == null || tipoGasto == ''){
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo clase de gasto es requerido.');
+			$('#cmbClaseGasto').trigger("focus");
+		} else if(descripcion == null || descripcion == ''){
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo descripcion es requerido.');
+			$('#txtDescripcionGasto').trigger("focus");
+		} else if(monto == null || monto == ''){
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo monto es requerido.');
+			$('#txtMontoGasto').trigger("focus");
+		} else if(tipoMoneda == null || tipoMoneda == ''){
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo tipo de moneda es requerido.');
+			$('#tipoMonedaSelect').trigger("focus");
+		} else if(fecha == null || fecha == ''){
+			agregarMensaje($('#mensajeNuevoGasto'), 'E', 'El campo fecha es requerido.');
+			$('#txtFechaGasto').trigger("focus");
+		} else {
+			$.mobile.loading('show');
+			
+			if(esNuevoGasto){
+				gasto = {};
+				gasto.id_solicitud = idViaje;
+			}
+			
+			gasto.tipo_gasto = $('#cmbClaseGasto').val();
+			gasto.descripcion = $('#txtDescripcionGasto').val();
+			gasto.monto = $('#txtMontoGasto').val();
+			gasto.tipo_moneda = $('#tipoMonedaSelect').val();
+			gasto.fecha = $('#txtFechaGasto').val();
+			
+			//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
+			if(esNuevoGasto){
+				Kinvey.DataStore.save('gastos', gasto, {
+				    success: function(response) {
+				    	gasto = response;
+				    	agregarMensaje($('#mensajeNuevoGasto'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
+				    	$.mobile.loading('hide');
+				    	limpiarNuevoGasto();
+				    },
+			        error: function(error){
+						console.log(error);
+						agregarMensaje($('#mensajeNuevoGasto'), 'E', 'No se ha almacenado correctamente la informaci\u00F3n.');
+				        $.mobile.loading('hide');
+					}
+				});
+				
+			} else {
+				//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
+				Kinvey.DataStore.update('gastos', gasto, {
+				    success: function(response) {
+						agregarMensaje($('#mensajeNuevoGasto'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
+						$.mobile.loading('hide');
+				    },
+			        error: function(error){
+						console.log(error);
+						alert(error);
+				        agregarMensaje($('#mensajeNuevoGasto'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
+				        $.mobile.loading('hide');
+					}
+				});
+			}
+			
+		}
+		
+	} catch (e) {
+		$.mobile.loading('hide');
+		console.log(e);
+		agregarMensaje($('#mensajeNuevoGasto'), 'E', 'Error en tiempo de ejecuci\u00F3n, por favor contacte el administrador.');
+		alert(e);
+	}
+	
+}
+
 function readDataUrl(file) {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 }
