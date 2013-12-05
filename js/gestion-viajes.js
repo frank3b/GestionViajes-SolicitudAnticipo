@@ -174,7 +174,7 @@ function verFactura(){
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		//<img src="" id="imagenPopup" />
 		
-		$('#divImagePopup').append("<img id='img' src='"+ gasto.factura +"'/> ");
+		$('#divImagePopup').append("<img id='imagenPopup' src='"+ gasto.factura +"'/> ");
 		
 		//$('#imagenPopup').attr('src', gasto.factura);
 		$('#popupFoto').popup( "open" );
@@ -484,14 +484,19 @@ function init() {
     $(document).on("pageshow", "#listaViajesAprobados", function () {
     	consultarSolicitudes();
     });
+    
+    /*$("#popupFoto").on({
+		popupafterclose : function() {
+			document.location.href = '#nuevoGasto';
+		}
+	});*/
 	
-    /*$( "#popupFoto" ).on({
+    $( "#popupFoto" ).on({
         popupbeforeposition: function() {
             var maxHeight = $( window ).height() - 60 + "px";
             $( "#imagenPopup" ).css( "max-height", maxHeight );
         }
     });
-    */
 }
 
 var listaTiposGastos = null;
