@@ -157,7 +157,6 @@ function tomarFoto(){
 			
 			var item = "<img id='img' src='"+ imageData +"'/> ";
 			$('#imgFactura').append(item);
-			//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
 			
 		},
 		function() {
