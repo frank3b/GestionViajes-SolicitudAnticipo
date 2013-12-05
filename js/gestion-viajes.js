@@ -174,7 +174,8 @@ function verFactura(){
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		//<img src="" id="imagenPopup" />
 		$('#divImagePopup').empty();
-		$('#divImagePopup').append("<img id=\"imagenPopup\" style=\"max-height: 300px;\" src='"+ gasto.factura +"'/> ");
+		var maxHeight = $( window ).height() - 60 + "px";
+		$('#divImagePopup').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
 		
 		//$('#imagenPopup').attr('src', gasto.factura);
 		$('#popupFoto').popup( "open" );
@@ -323,7 +324,7 @@ function regresarAGastos(){
 
 function nuevoGasto(){
 	esNuevoGasto = true;
-	gasto = null;
+	gasto = {};
 	
 	$.mobile.changePage("#nuevoGasto", {
         transition: "pop",
