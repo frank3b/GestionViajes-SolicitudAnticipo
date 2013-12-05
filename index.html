@@ -6,8 +6,10 @@
 <title>Demo Legalización de gastos de Viajes</title>
 
 <link href="jquery.mobile/codiqa.ext.min.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.theme-1.3.2.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.structure-1.3.2.css" rel="stylesheet">
+<link href="jquery.mobile/jquery.mobile.theme-1.3.2.css"
+	rel="stylesheet">
+<link href="jquery.mobile/jquery.mobile.structure-1.3.2.css"
+	rel="stylesheet">
 
 <link href="css/custom-styles.css" rel="stylesheet">
 
@@ -21,17 +23,17 @@
 <!-- 
 <script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
  -->
- 
+
 <script type="text/javascript" charset="utf-8">
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
-		
-		window.resolveLocalFileSystemURI("file:///android_asset",
-				  function(entry){
-				    console.log(entry.fullPath);},
-				  function(evt){
-				    console.log(evt.code);}
-				);
+
+		window.resolveLocalFileSystemURI("file:///android_asset", function(
+				entry) {
+			console.log(entry.fullPath);
+		}, function(evt) {
+			console.log(evt.code);
+		});
 	};
 </script>
 
@@ -40,7 +42,7 @@
 
 	<!--Logon-->
 	<div data-role="page" id="logon" data-theme="b"
-		style="background: url('images/fondo.png'); background-size:100% 100%;">
+		style="background: url('images/fondo.png'); background-size: 100% 100%;">
 
 		<div data-role="header" data-theme="b" align="center">
 			<h1>Gestión de viajes</h1>
@@ -48,8 +50,9 @@
 
 		<div data-role="content">
 			<p></p>
-			<div align="center" >
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
+			<div align="center">
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
+					style="width: 288px;" />
 			</div>
 			<div align="center" style="height: 30px;">
 				<p></p>
@@ -57,20 +60,20 @@
 			<div class="custom-label">
 				<b>Usuario</b>
 			</div>
-			<input type="text" name="usuario" id="usuario" value="" 
-				data-type="vertical" onchange="$('#password').focus();"/>
+			<input type="text" name="usuario" id="usuario" value=""
+				data-type="vertical" onchange="$('#password').focus();" />
 			<div class="custom-label">
 				<b>Contraseña</b>
 			</div>
 			<input type="password" name="password" id="password" value=""
-				 onchange="$('#ingresar').focus();" />
+				onchange="$('#ingresar').focus();" />
 
 			<div align="center">
 				<a id="ingresar" data-role="button" data-inline="true"
 					data-theme="b" href="#" data-icon="check" data-iconpos="left"
 					data-transition="pop"> Ingresar </a>
 			</div>
-			<div id="mensaje" data-controltype="textblock" class="warning"></div>
+			<div id="mensaje" data-controltype="textblock"></div>
 		</div>
 
 	</div>
@@ -78,72 +81,139 @@
 	<!--Lista de viajes-->
 
 	<div data-role="page" data-control-title="legalizacion" data-theme="b"
-		id="listaViajesAprobados" style="background: url('images/fondo.png')">
-		
+		id="listaViajesAprobados"
+		style="background: url('images/fondo.png'); background-size: 100% 100%;">
+
 		<div data-theme="b" data-role="header">
-        <h2>
-            Listado
-        </h2>
-        <a data-role="button" data-transition="slide" data-theme="b" href="#page1"
-        data-icon="home" data-iconpos="left" class="ui-btn-left">
-            Salir
-        </a>
-    </div>
-    <div data-role="content">
-        <div style=" text-align:center" data-controltype="image">
-            <img style="width: 220px; height: px" src="https://s3.amazonaws.com/assets.codiqa.com/bUDWkIQxQca86IFFNzh4_Logo-Grupo-Bancolombia.png">
-        </div>
-        <div data-role="fieldcontain" data-controltype="searchinput">
-            <input name="" id="searchinput1" placeholder="Filtrar viajes..." value=""
-            type="search">
-        </div>
-        <ul id="lstViajesAprobados" data-role="listview" data-divider-theme="b"
-        data-inset="true">
-            <li data-role="list-divider" role="heading">
-                Viajes aprobados
-            </li>
-            <li data-theme="c">
-                <a href="#Expense" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-            <li data-theme="c">
-                <a href="#page1" data-transition="slide">
-                    Button
-                </a>
-            </li>
-        </ul>
-    </div>
-		
+			<h2>Listado</h2>
+			<a data-role="button" data-transition="slide" data-theme="b"
+				href="#logon" data-icon="home" data-iconpos="left"
+				class="ui-btn-left" onclick="salir();"> Salir </a>
+		</div>
+		<div data-role="content">
+			<div style="text-align: center" data-controltype="image">
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
+					style="width: 288px;" />
+			</div>
+			<div data-controltype="textblock" id="bienvenidaText"></div>
+
+			<div data-controltype="textblock" style="height: 30px"></div>
+
+			<div id="mensajeViajes" data-controltype="textblock"></div>
+
+			<ul id="lstViajesAprobados" data-role="listview"
+				data-divider-theme="b" data-inset="true" data-filter="true"
+				data-filter-placeholder="Filtrar viajes..." data-theme="c">
+				<li data-role="list-divider" role="heading">Viajes aprobados</li>
+
+			</ul>
+		</div>
+
 	</div>
-	
+
 	<!--/Listado viajes-->
-	
-	
+
+
+	<!--Gastos del viaje-->
+
+	<div data-role="page" data-control-title="Gastos del viaje"
+		data-theme="b" id="gastosViaje"
+		style="background: url('images/fondo.png'); background-size: 100% 100%;">
+
+		<div data-theme="b" data-role="header">
+			<a data-role="button" href="#nuevoGasto" data-icon="plus"
+				data-iconpos="left" class="ui-btn-right" >
+				Agregar </a>
+			<h2>Gastos</h2>
+			<a data-role="button" data-transition="slide" data-theme="b"
+				href="#listaViajesAprobados" data-icon="back" data-iconpos="left"
+				class="ui-btn-left"> Volver </a>
+		</div>
+		<div data-role="content" style="padding: 20px">
+			<div style="text-align: center" data-controltype="image">
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
+					style="width: 288px;" />
+			</div>
+
+			<div id="mensajeGastos" data-controltype="textblock"></div>
+
+			<div data-controltype="textblock" id="txtViaje" class="custom_title">
+
+			</div>
+
+			<ul id="lstGastos" data-role="listview" data-divider-theme="b"
+				data-inset="true" data-theme="c">
+
+			</ul>
+		</div>
+
+	</div>
+
+	<!--/Gastos del viaje-->
+
+
+
+	<div data-role="page" data-control-title="nuevoGasto" data-theme="b"
+		id="nuevoGasto"
+		style="background: url('images/fondo.png'); background-size: 100% 100%;">
+		<div data-theme="b" data-role="header">
+			<a data-role="button" href="#Expense" data-icon="arrow-r" onclick="guardarGasto();"
+				data-iconpos="left" class="ui-btn-right"> Guardar </a>
+			<h2>Agregar</h2>
+			<a data-role="button" data-transition="slide" data-theme="b"
+				href="#gastosViaje" data-icon="back" data-iconpos="left"
+				class="ui-btn-left"> Volver </a>
+		</div>
+		<div data-role="content">
+			<div style="text-align: center" data-controltype="image">
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
+					style="width: 288px;" />
+			</div>
+			<form action="">
+				<div data-role="fieldcontain" data-controltype="selectmenu">
+					<label for="cmbClaseGasto"> Clase de gasto </label> <select
+						id="cmbClaseGasto" name="cmbClaseGasto" data-mini="true">
+						<option value="1">Traslados</option>
+						<option value="2">Capacitación</option>
+						<option value="3">Reuniones</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain" data-controltype="textarea">
+					<label for="txtDescripcionGasto"> Descripción </label>
+					<textarea name="" id="txtDescripcionGasto" placeholder=""
+						data-mini="true"></textarea>
+				</div>
+				<div data-role="fieldcontain" data-controltype="textinput">
+					<label for="txtMontoGasto"> Monto </label> <input name=""
+						id="txtMontoGasto" placeholder="" value="" type="number"
+						data-mini="true">
+				</div>
+				<div data-role="fieldcontain" data-controltype="selectmenu">
+					<label for="tipoMonedaSelect"> Moneda </label> 
+					<select id="tipoMonedaSelect"
+						name="cmbMoneda" data-mini="true">
+						<option value="1">COP</option>
+						<option value="2">US</option>
+						<option value="3">EUR</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain" data-controltype="dateinput">
+					<label for="txtFechaGasto"> Fecha del gasto </label> 
+					<input name=""
+						id="txtFechaGasto" placeholder="" value="" type="date"
+						data-mini="true">
+				</div>
+				<a id="btnAgregarFactura" data-role="button" href="#agregarFactura"> Agregar factura </a>
+				<div
+					style="width: 50px; height: 50px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;"
+					data-controltype="image" id="imgFactura">
+					<img src="https://codiqa.com/static/images/v2/image.png"
+						alt="image"
+						style="position: absolute; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px">
+				</div>
+			</form>
+		</div>
+	</div>
+
 </body>
 </html>

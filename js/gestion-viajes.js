@@ -14,55 +14,15 @@ function validarUsuario(){
 	    if(usuario != null && password != null && usuario != '' && password != ''){
 	        
 	        
-	        Kinvey.User.logout({
+	        var promise = Kinvey.User.logout({
 	            success: function() {
 	                    console.log("Desconectando");
+	                    validarRol(usuario, password);
 	            },
 	            error: function(e) {
 	                    console.log("Usuario no conectado");
+	                    validarRol(usuario, password);
 	            }
-			});
-			
-			Kinvey.User.login(usuario, password, {
-				
-			            success: function() {
-			            console.log("Loggeado.");
-			            		var user = Kinvey.getActiveUser();
-			            
-					            var query = new Kinvey.Query();
-						        query.equalTo('idUsuario', user._id);
-								Kinvey.DataStore.find('UsuarioRol', query, {
-						            success: function(response) {
-						                
-						                if('PETITIONER' == response[0].rol){
-						                    $.mobile.changePage("#listaViajesAprobados", {
-						                            transition: "pop",
-						                            reverse: false,
-						                	        changeHash: false
-						                	});
-						                    
-						                    var txtBienv = "Bienvenido: " + user.first_name + " " + user.last_name;
-						    				$('#bienvenidaText').text(txtBienv);
-						    				$.mobile.loading('hide');
-						                } else {
-						                	$.mobile.loading('hide');
-						                	agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos.');
-						                }                
-						                $.mobile.loading('hide');
-						            },
-						            error: function(error){
-						    			console.log(error);
-						    			agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos..');
-						    	        $.mobile.loading('hide');
-									}
-						        });
-			            
-			            },
-			            error: function(error){
-			            	console.log(error);
-			    	        agregarMensaje($('#mensaje'), 'W', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.');
-			    	        $.mobile.loading('hide');
-			            }
 			});
 	        
 	    } else {
@@ -75,6 +35,58 @@ function validarUsuario(){
 		$.mobile.loading('hide');
 	}
     
+}
+
+function validarRol(usuario, password){
+	Kinvey.User.login(usuario, password, {
+		
+        success: function() {
+        console.log("Loggeado.");
+        		var user = Kinvey.getActiveUser();
+        
+        		 var query = new Kinvey.Query();
+                 query.equalTo('IdUsuario', user._id);
+                 var query2 = new Kinvey.Query();
+                 query2.equalTo('Rol', 'PETITIONER');
+                 query.and(query2);
+				Kinvey.DataStore.find('UsuarioRol', query, {
+		            success: function(response) {
+		            	
+		            	if(response.length > 0) {
+		            		cargarMotivosViaje();
+		            		cargarTiposGasto();
+		            		
+		            		$.mobile.changePage("#listaViajesAprobados", {
+	                            transition: "pop",
+	                            reverse: false,
+	                	        changeHash: false
+		            		});
+		            		
+		            		var txtBienv = "Bienvenido: " + user.first_name + " " + user.last_name;
+		    				$('#bienvenidaText').text(txtBienv);
+		    				$.mobile.loading('hide');
+		                    
+		                } else {
+		                	$.mobile.loading('hide');
+		                	agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos.');
+		                }                
+		                $.mobile.loading('hide');
+		            },
+		            error: function(error){
+		    			console.log(error);
+		    			agregarMensaje($('#mensaje'), 'W', 'No tiene permisos para acceder a legalizar gastos..');
+		    	        $.mobile.loading('hide');
+					}
+		        });
+        
+        },
+        error: function(error){
+        	console.log(error);
+	        agregarMensaje($('#mensaje'), 'W', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.');
+	        $.mobile.loading('hide');
+        }
+	});
+	
 }
 
 function salir(){
@@ -173,82 +185,128 @@ function verFoto(src){
 }
 */
 
-
-/*
-var listaVinculados = null;
+var listaSolicitudes = null;
 function consultarSolicitudes() {
 
-			$("#listaSolicitudes li").remove();
-			
-			try{
-				$.mobile.loading('show');
-				limpiarMensaje($('#mensaje'));	
-				
-			    var primer_nombre = $('#primerNombre').val();
-				var primer_apellido = $('#primerApellido').val();
-				
-				var queryName = new Kinvey.Query();
-				var queryApellido = new Kinvey.Query();
-				queryName.matches('primer_nombre', primer_nombre);
-				queryApellido.matches('primer_apellido', primer_apellido);
-				queryName.and(queryApellido);
-				
-				//alert(JSON.stringify(queryName));
-			    Kinvey.DataStore.find('Solicitudes', queryName, {
-			        success: function(response) {
-			        	//alert(JSON.stringify(response));
-			           if(response.length > 0){
-				           $.mobile.loading('hide');
-				           
-				           listaVinculados = response;
-				           
-				           $("#listaVinculados").append("<li data-role=\"list-divider\" role=\"heading\">Seleccione un registro</li>").listview('refresh');
-				           var isPopupEnabled = false;
-				           $.each(response, function(index, obj) {
+	$("#lstViajesAprobados li").remove();
 
-								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> "
-										+ "<p><strong>Documento:</strong> " + obj.numero_documento + "</p>"
-										+ "<p><strong>"
-										+ obj.primer_nombre + " " + obj.segundo_nombre
-										+ " " + obj.primer_apellido + " "
-										+ obj.segundo_apellido + "</strong></p>"
-										+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
-										//+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
-										+ "</a></li>";
+	try {
+		$.mobile.loading('show');
+		limpiarMensaje($('#mensajeViajes'));
+
+		var user = Kinvey.getActiveUser();
+		var query = new Kinvey.Query();
+		query.equalTo('id_usuario', user.username);
+		var query2 = new Kinvey.Query();
+		query2.equalTo('Estado', '1');
+		query.and(query2);
+
+		Kinvey.DataStore.find('Solicitudes', query,	{
+							success : function(response) {
 								
-								$("#listaVinculados").append(item).listview('refresh');
-								
-								if(!isPopupEnabled){
-									$( "#listaVinculadosPopup" ).popup( "open" );
-									isPopupEnabled = true;
+								if (response.length > 0) {
+
+									listaSolicitudes = response;
+
+									$("#lstViajesAprobados")
+											.append(
+													"<li data-role=\"list-divider\" role=\"heading\">Viajes aprobados</li>")
+											.listview('refresh');
+									$.each(response, function(index, obj) {
+										
+										$.each(listaMotivos, function(index, objMotivo) {
+											if(objMotivo.id_motivo == obj.id_motivo){
+												var item = "<li><a href=\"#gastosViaje\" onclick=\"consultarGastos('" + obj.id_solicitud + "');\"> "
+													+ "<p><strong>Solicitud #:</strong> " + obj.id_solicitud + "</p>"
+													+ "<p><strong>Motivo:</strong> " + objMotivo.motivo +	"</p>"
+													+ "<p class=\"ui-li-aside\"><strong>" + obj.fecha_inicio + "</strong></p>"
+													+ "</a></li>";	
+												$("#lstViajesAprobados").append(item).listview('refresh');
+											}
+										});
+
+									});
+									$.mobile.loading('hide');
+								} else {
+									agregarMensaje($('#mensajeViajes'), 'W',
+											'No se encontr\u00F3 registros ');
+									$.mobile.loading('hide');
 								}
-								
-							});
-				           
-			           } else {
-			        	 agregarMensaje($('#mensaje'), 'W', 'No se encontr\u00F3 registros ');
-			        	 $('#guardar').button('enable');
-				          $.mobile.loading('hide');
-			           }
-			           
-			        },
-			        error: function(error){
-						console.log(error);
-						agregarMensaje($('#mensaje'), 'E', 'Error de conexi\u00F3n, verifique por favor.' );
-				        $.mobile.loading('hide');
-				        $('#guardar').button('enable');
-					}
-			    });
-			} catch (e) {
-				$.mobile.loading('hide');
-				$('#guardar').button('enable');
-				console.log(error);
-			}
 
-		}
+							},
+							error : function(error) {
+								console.log(error);
+								agregarMensaje($('#mensajeViajes'), 'E',
+										'Error de conexi\u00F3n, verifique por favor.');
+								$.mobile.loading('hide');
+							}
+						});
+	} catch (e) {
+		$.mobile.loading('hide');
+		console.log(error);
 	}
 }
-*/	
+
+var idViaje = null;
+function consultarGastos(id_solicitud) {
+	
+	$("#lstGastos li").remove();
+
+	try {
+		$.mobile.loading('show');
+		limpiarMensaje($('#mensajeGastos'));
+		
+		var user = Kinvey.getActiveUser();
+		var query = new Kinvey.Query();
+		query.equalTo('id_solicitud', id_solicitud);
+		query.ascending('fecha');
+		
+		Kinvey.DataStore.find('gastos', query, {
+			success : function(response) {
+				if (response.length > 0) {
+					idViaje = id_solicitud;
+					$('#txtViaje').text("Viaje Nro: " + id_solicitud);
+					
+					var fechaAnterior = null;
+					$.each(response, function(index, obj) {
+						
+						if(fechaAnterior == null || fechaAnterior != obj.fecha){
+							$("#lstGastos").append("<li data-role=\"list-divider\" role=\"heading\">" +
+									"Gastos " + obj.fecha + "</li>").listview('refresh');
+							esFechaInicial = false;
+							fechaAnterior = obj.fecha;
+						} 
+						
+						var item = "<li><a href=\"#gastosViaje\" onclick=\"consultarGastos('" + obj._id + "');\"> "
+							+ "<p><strong>" + obj.descripcion + "</strong></p>"
+							+ "<p><strong>$ " + obj.monto + " " + obj.tipo_moneda + "</strong></p>"
+							+ "</a></li>";
+						$("#lstGastos").append(item).listview('refresh');
+
+					});
+					$.mobile.loading('hide');
+				} else {
+					agregarMensaje($('#mensajeGastos'), 'W',
+							'No se encontr\u00F3 gastos para la solicitud: ' + id_solicitud);
+					$.mobile.loading('hide');
+				}
+			},
+			error : function(error) {
+				console.log(error);
+				agregarMensaje($('#mensajeGastos'), 'E',
+						'Error de conexi\u00F3n, verifique por favor.');
+				$.mobile.loading('hide');
+			}
+		});
+	} catch (e) {
+		$.mobile.loading('hide');
+		console.log(error);
+	}
+}
+
+function nuevoGasto(){
+	//FIXME - Implementar
+}
 	
 function readDataUrl(file) {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
@@ -263,6 +321,7 @@ function fail(evt) {
     console.log(evt.target.error.code);
 }
 
+var listaMotivos = null;
 function init() {
 	
 	var promise = Kinvey.init({
@@ -273,5 +332,49 @@ function init() {
     $("#ingresar").on("click", function() {
     	validarUsuario();
     });
+    
+    $(document).on("pageshow", "#listaViajesAprobados", function () {
+    	consultarSolicitudes();
+    });
+	
+    
+}
+
+var listaTiposGastos = null;
+function cargarTiposGasto()
+{
+	Kinvey.DataStore.find('tiposgasto', null, {
+		success : function(response) {
+			listaTiposGastos = null;
+			listaTiposGastos = response;
+		},
+		error : function(error) {
+			console.log(error);
+		}
+	});
+}
+
+function cargarMotivosViaje()
+{
+	Kinvey.DataStore.find('motivos', null, {
+		success : function(response) {
+			listaMotivos = null;
+			listaMotivos = response;
+		},
+		error : function(error) {
+			console.log(error);
+		}
+	});
+}
+
+function consultarNombreMotivo(idMotivo){
+	
+	//alert(idMotivo + '-->'+ JSON.stringify(listaMotivos));
+	$.each(listaMotivos, function(index, obj) {
+		if(obj.id_motivo == idMotivo){
+			console.log(obj.motivo);
+			return obj.motivo;
+		}
+	});
 	
 }
