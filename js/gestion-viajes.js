@@ -197,7 +197,7 @@ function consultarSolicitudes() {
 		var query = new Kinvey.Query();
 		query.equalTo('id_usuario', user.username);
 		var query2 = new Kinvey.Query();
-		query2.equalTo('Estado', 1);
+		query2.equalTo('Estado', "1");
 		query.and(query2);
 
 		Kinvey.DataStore.find('Solicitudes', query,	{
