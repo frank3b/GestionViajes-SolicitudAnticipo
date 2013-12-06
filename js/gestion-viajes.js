@@ -251,6 +251,8 @@ var listaGastos = null;
 function consultarGastos(id_solicitud) {
 	
 	try {
+		idViaje = id_solicitud;
+		
 		$.mobile.changePage("#gastosViaje", {
 	        transition: "pop",
 	        reverse: false,
@@ -273,8 +275,6 @@ function consultarGastos(id_solicitud) {
 				$('#txtViaje').val(id_solicitud);
 				if (response.length > 0) {
 					listaGastos = response;
-					idViaje = id_solicitud;
-					
 					
 					var fechaAnterior = null;
 					$.each(response, function(index, obj) {
@@ -323,7 +323,6 @@ function regresarAGastos(){
 
 function nuevoGasto(){
 	esNuevoGasto = true;
-	gasto = {};
 	
 	$.mobile.changePage("#nuevoGasto", {
         transition: "pop",
