@@ -172,12 +172,10 @@ function tomarFoto(){
 function verFactura(){
 	limpiarMensaje($('#mensajeNuevoGasto'));
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
-		//<img src="" id="imagenPopup" />
-		$('#divImagePopup').empty();
+		$('#imagenPopup').remove();
 		var maxHeight = $( window ).height() - 60 + "px";
-		$('#divImagePopup').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
+		$('#popupFoto').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
 		
-		//$('#imagenPopup').attr('src', gasto.factura);
 		$('#popupFoto').popup( "open" );
 	} else {
 		$('#popupFoto').popup( "hide" );
@@ -272,10 +270,11 @@ function consultarGastos(id_solicitud) {
 		
 		Kinvey.DataStore.find('gastos', query, {
 			success : function(response) {
+				$('#txtViaje').val(id_solicitud);
 				if (response.length > 0) {
 					listaGastos = response;
 					idViaje = id_solicitud;
-					$('#txtViaje').val(id_solicitud);
+					
 					
 					var fechaAnterior = null;
 					$.each(response, function(index, obj) {
@@ -490,13 +489,12 @@ function init() {
 		}
 	});*/
 	
-    /*$( "#popupFoto" ).on({
+    $( "#popupFoto" ).on({
         popupbeforeposition: function() {
             var maxHeight = $( window ).height() - 60 + "px";
             $( "#imagenPopup" ).css( "max-height", maxHeight );
         }
     });
-    */
 }
 
 var listaTiposGastos = null;
