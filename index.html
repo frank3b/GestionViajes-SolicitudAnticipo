@@ -188,7 +188,6 @@
 					data-transition="none" data-position-to="origin">
 					
 					<a href='#nuevoGasto' data-rel='dialog' data-role='button' data-theme='b' data-icon='delete' data-iconpos='notext' class='ui-btn-right'>X</a>
-					
 			</div>	
 			
 			<div style="text-align: center" data-controltype="image">
@@ -246,7 +245,7 @@
 							<li><a href="#" data-transition="fade"onclick="tomarFoto();" data-theme="b" data-icon="">
 									Agregar factura
 							</a></li>
-							<li><a href="#popupFoto" data-transition="fade" onclick="verFactura();" data-rel="popup" data-position-to="window"
+							<li><a href="#verFactura" data-transition="fade" onclick="verFactura();"
 									data-theme="b" data-icon="">
 									Ver factura 
 							</a></li>
@@ -257,6 +256,28 @@
 		</div>
 	</div>
 	<!--Nuevo / Editar del viaje-->
+	
+	<!--Detalle de la factura-->
+
+	<div data-role="page" data-control-title="Factura"
+		data-theme="b" id="verFactura"
+		style="background: url('images/fondo.png'); background-size: 100% 100%;">
+
+		<div data-theme="b" data-role="header">
+			
+			<h2>Factura</h2>
+			<a data-role="button" data-transition="slide" data-theme="b"
+				href="#nuevoGasto" data-icon="back" data-iconpos="left"
+				class="ui-btn-left"> Volver </a>
+		</div>
+		
+		<div id="popupFactura" class="photopopup ui-popup ui-overlay-shadow ui-body-c" data-overlay-theme="a" 
+					data-corners="false">
+					
+		</div>	
+	</div>
+
+	<!--Detalle de la factura-->
 	
 </body>
 </html>
