@@ -189,11 +189,11 @@ function verFactura(){
 	if(gasto != null && gasto.factura != null && gasto.factura != ''){
 		$('#popupFactura').empty();
 		var maxHeight = $( window ).height() - 60 + "px";
-		$('#popupFactura').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
+		//$('#popupFactura').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
+		$('#popupFactura').append("<img id=\"imagenPopup\" style=\"height: 100%;\" src='"+ gasto.factura +"'/> ");
 	} else {
 		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar factura".');
 	}
-	
 }
 
 var listaSolicitudes = null;
