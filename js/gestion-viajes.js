@@ -513,6 +513,8 @@ function init() {
             $( "#imagenPopup" ).css( "max-height", maxHeight );
         }
     });
+    
+    agregarMensaje($('#mensaje'), 'I', 'Por favor ingrese con "solicitante",  la clave es "123".');
 }
 
 var listaTiposGastos = null;
