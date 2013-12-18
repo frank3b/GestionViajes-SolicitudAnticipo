@@ -191,7 +191,12 @@ function verFactura(){
 		var maxHeight = $( window ).height() - 60 + "px";
 		//$('#popupFactura').append("<img id=\"imagenPopup\" style=\"max-height: "+ maxHeight +";\" src='"+ gasto.factura +"'/> ");
 		$('#popupFactura').append("<img id=\"imagenPopup\" style=\"height: 100%;\" src='"+ gasto.factura +"'/> ");
-		alert(gasto.factura);
+		
+		$.mobile.changePage("#verFactura", {
+            transition: "pop",
+            reverse: false,
+	        changeHash: false
+		});
 	} else {
 		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar factura".');
 	}
