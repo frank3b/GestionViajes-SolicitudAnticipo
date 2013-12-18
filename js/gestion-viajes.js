@@ -514,7 +514,11 @@ function init() {
         }
     });
     
-    agregarMensaje($('#mensaje'), 'I', 'Por favor ingrese con "solicitante",  la clave es "123".');
+    $(document).on("pageshow", "#logon", function () {
+    	agregarMensaje($('#mensaje'), 'W', 'Por favor ingrese con "solicitante",  la clave es "123".');
+    });
+    
+    
 }
 
 var listaTiposGastos = null;
