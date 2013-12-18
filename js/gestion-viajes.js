@@ -418,7 +418,6 @@ function guardarGasto(){
 			$.mobile.loading('show');
 			
 			if(esNuevoGasto){
-				gasto = {};
 				gasto.id_solicitud = idViaje;
 			}
 			
