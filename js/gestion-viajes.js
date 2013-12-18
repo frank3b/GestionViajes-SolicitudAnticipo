@@ -486,7 +486,7 @@ function fail(evt) {
 
 var listaMotivos = null;
 function init() {
-	
+	document.addEventListener("deviceready", onDeviceReady, true);
 	var promise = Kinvey.init({
         appKey    : 'kid_PPwwzftRG9',
         appSecret : 'a5f7bc254fea41da8364e4bc7064c096'
