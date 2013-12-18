@@ -160,7 +160,7 @@ function tomarFoto(){
 			//$('#imgFactura').append(item);
 				
 			gasto.factura = imageData;	
-			
+			agregarMensaje($('#mensajeNuevoGasto'), 'S', 'La imagen se ha almacenado exitosamente, puede verla con la opci\u00F3n "Ver Factura".');
 		},
 		function() {
 			alert('Error tomando foto. Intente de nuevo más tarde', "Error");
@@ -179,7 +179,7 @@ function verFacturaOld(){
 		$('#popupFoto').popup( "open" );
 	} else {
 		$('#popupFoto').popup( "hide" );
-		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar factura".');
+		agregarMensaje($('#mensajeNuevoGasto'), 'W', 'Debe adjuntar primero la factura con la opci\u00F3n "Agregar Factura".');
 	}
 	
 }
@@ -379,6 +379,8 @@ function editarGasto(idGasto){
 }
 
 function limpiarNuevoGasto(){
+	gasto = {};
+	
 	$('#cmbClaseGasto').val("1").selectmenu('refresh');;
 	$('#txtDescripcionGasto').val("");
 	$('#txtMontoGasto').val("");
